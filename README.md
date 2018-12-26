@@ -5,7 +5,7 @@
 First install prerequisites for building QEMU and Linux kernel (assuming CentOS/Fedora package names):
 
 ```Shell
-[you@you] sudo dnf install -y glib2-devel zlib-devel pixman-devel bison flex elfutils-libelf-devel openssl-devel glibc-static
+[you@host] sudo dnf install -y glib2-devel zlib-devel pixman-devel bison flex elfutils-libelf-devel openssl-devel glibc-static
 ```
 
 Get the environment ready. This grabs, builds, and prepares recent copies of
