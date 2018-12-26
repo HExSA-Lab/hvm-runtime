@@ -2,17 +2,19 @@
 
 echo "Setting up BusyBox Environment"
 
+NCPU=`nproc`
+
 mkdir bb
 pushd bb
 git clone git://git.busybox.net/busybox.git
 pushd busybox
 mkdir -pv obj/bb-x86
 echo "Building BusyBox"
-make O=obj/bb-x86 defconfig
-cp ../../configs/bb-config obj/bb-x86/.config
-cp ../../configs/bb-config .config
+make O=obj/bb-x86 defconfig -j$NCPU
+sed "/CONFIG_STATIC/s/.*/CONFIG_STATIC=y/" -i obj/bb-x86/.config
+sleep 1
 pushd obj/bb-x86
-make -j `nproc` 
+make -j$NCPU
 make install
 popd
 echo "Creating initramfs template"
@@ -25,6 +27,7 @@ popd
 popd
 echo "Copying init"
 cp configs/init bb/busybox/initramfs/bb-x86/
+chmod +x bb/busybox/initramfs/bb-x86/init
 
 mkdir qemu
 pushd qemu
@@ -32,7 +35,7 @@ git clone https://github.com/HExSA-Lab/qemu.git
 pushd qemu
 echo "Building QEMU"
 ./configure --target-list=x86_64-softmmu --enable-debug
-make -j `nproc`
+make -j$NCPU
 popd
 popd
 
@@ -43,8 +46,8 @@ echo "Preparing guest kernel"
 git clone https://github.com/torvalds/linux.git
 pushd linux
 make defconfig
-make modules_prepare -j `nproc`
-make bzImage -j `nproc`
+make modules_prepare -j$NCPU 
+make bzImage -j$NCPU
 popd
 popd
 
