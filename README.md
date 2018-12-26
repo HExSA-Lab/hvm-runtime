@@ -8,28 +8,12 @@ First install prerequisites for building QEMU and Linux kernel (assuming CentOS/
 [you@host] sudo dnf install -y glib2-devel zlib-devel pixman-devel bison flex elfutils-libelf-devel openssl-devel glibc-static
 ```
 
-Get the environment ready. This grabs, builds, and prepares recent copies of
-BusyBox (for the guest userspace), the Linux kernel (for the guest kernel), and QEMU (the VMM)
-
 ```Shell
-[you@host] make setup
-```
+[you@host] curl -sSf https://git.io/hvmrtsetup | sh
 
-Now build the initramfs, the guest linux user-space HVM utility, the
-guest Linux kernel driver, and the guest virtual disk image by running
+This grabs, builds, and prepares recent copies of
+BusyBox (for the guest userspace), the Linux kernel (for the guest kernel), a virtual disk image for the guest (mounted at `/mnt`), and QEMU (the VMM), then builds the HVM runtime system and adds it to the virtual disk image. Once it's finished (it will take a good long while), you can boot the guest using QEMU with:
 
-
-```Shell
-[you@host] make 
-```
-
-The disk image will be mounted in the guest at `/mnt`. You can
-build the initramfs explicitly by running `make initramfs` and you can build 
-the disk image explicitly by running `make hdd`. `make` by itself will
-invoke these automatically if they haven't been build yet.
-
-
-You can run using QEMU:
 
 ```Shell
 [you@host] make run
