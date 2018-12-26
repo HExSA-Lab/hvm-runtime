@@ -138,7 +138,7 @@ hvm_del_init (void)
 
     refcount_set(&glob_info->refcnt, 1);
 
-    glob_info->chrdev = register_chrdev(0, CHRDEV_NAME, &fops);
+    glob_info->chrdev = register_chrdev(244, CHRDEV_NAME, &fops);
 
     INFO("<maj,min> = <%u,%u>\n", MAJOR(glob_info->chrdev), MINOR(glob_info->chrdev));
 
