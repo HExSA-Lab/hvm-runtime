@@ -9,7 +9,7 @@ First install prerequisites for building QEMU and Linux kernel (assuming CentOS/
 ```
 
 ```Shell
-[you@host] curl -sSf https://git.io/hvmrtsetup | sh
+[you@host] curl -sSfL https://git.io/hvm-rt | sh
 
 This grabs, builds, and prepares recent copies of
 BusyBox (for the guest userspace), the Linux kernel (for the guest kernel), a virtual disk image for the guest (mounted at `/mnt`), and QEMU (the VMM), then builds the HVM runtime system and adds it to the virtual disk image. Once it's finished (it will take a good long while), you can boot the guest using QEMU with:
