@@ -21,6 +21,9 @@ hvm-driver.ko: hvm-driver.c
 initramfs: 
 	@scripts/gen_initramfs.sh $(INITRAMFS_DIR) $@.cpio.gz
 
+image.iso:
+	@scripts/gen_iso.sh $(GUEST_KERN_DIR) $@
+
 hdd: $(OBJ_LIST)
 	@dd if=/dev/zero of=$@.img count=10000 bs=1024
 	@mkfs.ext3 $@.img
